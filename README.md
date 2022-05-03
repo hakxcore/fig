@@ -1,2 +1,2 @@
 # fig
-FIG is a Fake Identity Generator that doesn't even exists in the world.
+FIG(Fake Identity Genrator) is a tool which generates the Fake Identities, the identities which doesn't even exists in the world.
