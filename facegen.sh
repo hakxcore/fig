@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 # Author: Hakxcore https://github.com/hakxcore
+
+
+#sudo apt install html-xml-utils
+#sudo apt  install libxml2-utils
+
+
+#
+#cat file2 | grep -i -B 120 'Shortcuts' | pv -qL 50
+
+
+
+
 currentVersion="v0.0.1"
 configuredClient=""
 
@@ -90,6 +102,31 @@ getConfiguredClient()
   fi
 }
 
+## This function determines weather pv tool is installed or not
+getConfiguredPv()
+{
+  if  command -v curl &>/dev/null; then
+    echo ""                                             
+  else
+    echo "Error: This tool requires either pv to be installed." >&2
+    echo "use `apt insstall pv`"
+
+    return 1
+  fi
+}
+
+## This function determines weather w3m tool is installed or not
+getConfiguredW3m()
+{
+  if  command -v curl &>/dev/null; then
+   echo ""                                              
+  else
+    echo "Error: This tool requires either w3m to be installed." >&2
+    echo "use `apt insstall w3m`"
+
+    return 1
+  fi
+}
 ##This function determines the latest version of the termux-snippets if available and installs them
 update()
 {
@@ -126,17 +163,25 @@ update()
   fi
 }
 
+
 ##This function Checks for the insternet connectivity
 checkInternet()
 {
   curl -s github.com > /dev/null 2>&1 || { echo "Error: no active internet connection" >&2; return 1; } # query github with a get request
 }
 
-getFace(){
-  checkInternet
-  curl -s --header "Authorization: API-Key NS6_7xnlFmzIiOu5Eeg9vw" "https://api.generated.photos/api/v1/faces?per_page=1&emotion=neutral&age=$1" | jq
-}
 
+##Main function
+Main(){
+  getConfiguredW3m
+  getConfiguredPv
+  checkInternet
+  echo $BLUE"--------------------------------------------------"$GREEN"Images Size Wise$BLUE--------------------------------------------------------"
+  curl -s --header "Authorization: API-Key NS6_7xnlFmzIiOu5Eeg9vw" "https://api.generated.photos/api/v1/faces?per_page=1&gender=$1&emotion=neutral&age=$2" | jq | grep https | awk {'print "Image Size "$1,$2'} | sed 's/"//g' | nl
+  echo -e $BLUE"\n--------------------------------------------------"$GREEN"Fake ID Data$BLUE--------------------------------------------------------"
+  
+  w3m -dump https://www.fakenamegenerator.com/gen-random-us-it.php | grep -i -B 120 'Shortcuts' | pv -qL 50
+}
 
 ##Usage and Help
 usage()
@@ -194,9 +239,9 @@ elif [[ $# == "1" ]]; then
     exit 0
   fi
   else
-        clear; echo "You shouldnt be here but maaaaaaybeee you slipped passed me, learn to use the tool!"; sleep 5; clear;
-  usage
+        #clear; echo "You shouldnt be here but maaaaaaybeee you slipped passed me, learn to use the tool!"; sleep 5; clear;
+  #usage
+  Main $1 $2
   exit 1
 fi
 
-getFace $1
