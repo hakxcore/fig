@@ -130,7 +130,7 @@ getConfiguredW3m()
 ##This function determines the latest version of the termux-snippets if available and installs them
 update()
 {
-  repositoryName="termux-snippets"
+  repositoryName="fig"
   githubUserName="hakxcore"
   nameOfInstallFile="install"
   latestVersion=$(curl -s https://api.github.com/repos/hakxcore/termux-snippets/tags | grep -Eo '"name":.*?[^\\]",'| head -1 | grep -Eo "[0-9.]+") #always grabs the tag without the v option
