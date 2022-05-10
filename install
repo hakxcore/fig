@@ -1,0 +1,2 @@
+mv facegen.sh fig
+sudo mv fig /usr/bin
