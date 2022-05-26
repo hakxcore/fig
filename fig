@@ -197,8 +197,8 @@ Usage: facegen age
   -v  Get the tool version
 
 Examples:
-   facegen child
-   facegen young-adult
+   fig child
+   fig young-adult
 EOF
 }
 
@@ -208,13 +208,13 @@ while getopts "e:d:uvh" opt; do
     \?) echo "Invalid option: -$OPTARG" >&2
         exit 1
         ;;
-    h)  usage
+    h | help)  usage
         exit 0
         ;;
-    v)  echo "Version $currentVersion"
+    v | version)  echo "Version $currentVersion"
         exit 0
         ;;
-    u)
+    u | update)
         getConfiguredClient || exit 1
         checkInternet || exit 1
         update
