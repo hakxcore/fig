@@ -180,7 +180,7 @@ Main(){
   curl -s --header "Authorization: API-Key NS6_7xnlFmzIiOu5Eeg9vw" "https://api.generated.photos/api/v1/faces?per_page=1&gender=$1&emotion=neutral&age=$2" | jq | grep https | awk {'print "Image Size "$1,$2'} | sed 's/"//g' | nl
   echo -e $BLUE"\n--------------------------------------------------"$GREEN"Fake ID Data$BLUE--------------------------------------------------------"
   
-  w3m -dump https://www.fakenamegenerator.com/gen-random-us-it.php | grep -i -B 120 'Shortcuts' | pv -qL 50
+  w3m -dump https://www.fakenamegenerator.com/gen-random-us-it.php | grep -i -B 120 'Shortcuts' | html2text | pv -qL 50
 }
 
 ##Usage and Help
@@ -208,13 +208,13 @@ while getopts "e:d:uvh" opt; do
     \?) echo "Invalid option: -$OPTARG" >&2
         exit 1
         ;;
-    h | help)  usage
+    h)  usage
         exit 0
         ;;
-    v | version)  echo "Version $currentVersion"
+    v)  echo "Version $currentVersion"
         exit 0
         ;;
-    u | update)
+    u)
         getConfiguredClient || exit 1
         checkInternet || exit 1
         update
