@@ -125,13 +125,12 @@ checkInternet()
 banner()
 {
 
-echo -e "\t\t\t\t$GREEN·▄▄▄▪   ▄▄ • "
-echo -e "\t\t\t\t▐▄▄·██ ▐█ ▀ ▪ "
-echo -e "\t\t\t\t██▪ ▐█·▄█ ▀█▄ "
-echo -e "\t\t\t\t██▌.▐█▌▐█▄▪▐█ "
-echo -e "\t\t\t\t▀▀▀ ▀▀▀·▀▀▀▀ $RESETBG$BLUE$currentVersion$RESETBG"
-echo ""
-echo -e "$YELLOW\t\t\t ------(Instructions)------$RESETBG"
+echo -e "\t\t\t      $GREEN·▄▄▄▪   ▄▄ • "
+echo -e "\t\t\t      ▐▄▄·██ ▐█ ▀ ▪ "
+echo -e "\t\t\t      ██▪ ▐█·▄█ ▀█▄ "
+echo -e "\t\t\t      ██▌.▐█▌▐█▄▪▐█ "
+echo -e "\t\t\t      ▀▀▀ ▀▀▀·▀▀▀▀ $RESETBG$BLUE$currentVersion$RESETBG"
+echo -e "$YELLOW\t\t ------------(Instructions)------------$RESETBG"
 echo -e "$MAGENTA\t\t -\U2192 Confidence$CYAN: 0.0 - 1.0, Default: 0.5"   
 sleep 1
 echo -e "$MAGENTA\t\t -\U2192 Emotion$CYAN:    joy, neutral, surprise"
@@ -157,35 +156,94 @@ sleep 1
 # echo -e "$CYAN\tNumber of items per page. Maximum: 100, Default: 10"
 # sleep 1
 }
+banner1()
+{
+
+echo -e "\t\t\t      $GREEN·▄▄▄▪   ▄▄ • "
+echo -e "\t\t\t      ▐▄▄·██ ▐█ ▀ ▪ "
+echo -e "\t\t\t      ██▪ ▐█·▄█ ▀█▄ "
+echo -e "\t\t\t      ██▌.▐█▌▐█▄▪▐█ "
+echo -e "\t\t\t      ▀▀▀ ▀▀▀·▀▀▀▀ $RESETBG$BLUE$currentVersion$RESETBG"
+echo -e "$YELLOW\t\t ------------(Instructions)------------$RESETBG"
+echo -e "$MAGENTA\t\t -\U2192 Confidence$CYAN: 0.0 - 1.0, Default: 0.5"   
+echo -e "$MAGENTA\t\t -\U2192 Emotion$CYAN:    joy, neutral, surprise"
+echo -e "$MAGENTA\t\t -\U2192 Gender$CYAN:     male, female"
+echo -e "$MAGENTA\t\t -\U2192 Age$CYAN:        child, young-adult, adult, elderly"
+echo -e "$MAGENTA\t\t -\U2192 Ethnicity$CYAN:  white, latino, asian, black"
+echo -e "$MAGENTA\t\t -\U2192 Eye_color$CYAN:  brown, blue, gray, green"
+echo -e "$MAGENTA\t\t -\U2192 Hair_color$CYAN: brown, blond, black, gray, red"
+echo -e "$MAGENTA\t\t -\U2192 Hair_length$CYAN:short, medium, long"
+echo -e "$MAGENTA\t\t -\U2192 Order_by$CYAN:   latest, oldest, random, Default: latest. "
+# echo -e "$MAGENTA 10. page"
+# echo -e "$CYAN\tPage number to retrieve, Default: 1"
+# sleep 1
+# echo "$MAGENTA 11. per_page"
+# echo -e "$CYAN\tNumber of items per page. Maximum: 100, Default: 10"
+# sleep 1
+}
 ##Main function
 getFakeId()
 {
+	clear
   banner
+  read -p "Enter Gender: " gen
+  clear
+  banner1
+  read -p "Enter Emotion: " emo
+  clear
+  banner1
+  read -p "Enter Age: " age
+  clear
+  banner1
+  read -p "Enter Ethnicity: " eth
+  clear
+  banner1
+  read -p "Enter Eye_color: " eyc
+  clear
+  banner1
+  read -p "Enter Hair_color: " hac
+  clear
+  banner1
+  read -p "Enter Hair_length: " hal
+  clear
+  banner1
+  read -p "Enter Order_by: " odb
+  clear
+  echo -e "\t\t\t      $GREEN·▄▄▄▪   ▄▄ • "
+  echo -e "\t\t\t      ▐▄▄·██ ▐█ ▀ ▪ "
+  echo -e "\t\t\t      ██▪ ▐█·▄█ ▀█▄ "
+  echo -e "\t\t\t      ██▌.▐█▌▐█▄▪▐█ "
+  echo -e "\t\t\t      ▀▀▀ ▀▀▀·▀▀▀▀ $RESETBG$BLUE$currentVersion$RESETBG"
   getConfiguredW3m
   getConfiguredPv
-  echo $BLUE"--------------------------------------------------"$GREEN"Images Size Wise$BLUE--------------------------------------------------------"
-  curl --header "Authorization: API-Key NS6_7xnlFmzIiOu5Eeg9vw" https://api.generated.photos/api/v1/faces?per_page=1&gender=$1&emotion=neutral&age=$2 | jq | grep https | awk {'print "Image Size "$1,$2'} | sed 's/"//g' | nl
+  echo -e $YELLOW"\t\t-----------------------(Images Size Wise)--------------------------$GREEN"
+  curl -s --header "Authorization: API-Key NS6_7xnlFmzIiOu5Eeg9vw" "https://api.generated.photos/api/v1/faces?per_page=1&gender=$gen&emotion=$emo&age=$age" | jq | grep https | awk {'print "Image Size "$1,$2'} | sed 's/"//g' | nl
   sleep 3
-  echo -e $BLUE"\n--------------------------------------------------"$GREEN"Fake ID Data$BLUE--------------------------------------------------------"
-  if [[ "$1" == "male" && "$2" == "child" ]]; then
+  echo -e $YELLOW"\t\t-------------------------(Fake ID Data)-------------------------------$RESETBG"
+  
+  if [[ "$1" == "male" ]] || [[ "$gen" == "male" ]]; then
   	gen="97"
-  	min-age="2"
-  	max-age="17"
-  elif [[ "$1" == "male" && "$2" == "adult" ]]; then
-  	gen="97"
-  	min-age="18"
-  	max-age="24"
-  elif [[ "$1" == "male" && "$2" == "young-adult" ]]; then
-  	gen="97"
-  	min-age="25"
-  	max-age="30"
-  elif [[ "$1" == "male" && "$2" == "elderly" ]]; then
-  	gen="97"
-  	min-age="31"
-  	max-age="60"
+  elif [[ "$1" == "female" ]] || [[ "$gen" == "female" ]]; then
+  	gen="3"
   fi
+
+	  if [[ "$2" == "child" ]] || [[ "$age" == "child" ]]; then
+	  	minage="7"
+	  	maxage="17"
+	  elif [[ "$2" == "adult" ]] || [[ "$age" == "adult" ]]; then
+	  	minage="18"
+	  	maxage="24"
+	  elif [[ "$2" == "young-adult" ]] || [[ "$age" == "young-adult" ]]; then
+	  	minage="25"
+	  	maxage="30"
+	  elif [[ "$2" == "elderly" ]] || [[ "$age" == "elderly" ]]; then
+	  	minage="31"
+	  	maxage="60"
+	  fi
+  	#statements
   #https://www.fakenamegenerator.com/gen-random-us-it.php | grep -i -B 120 'Shortcuts' | pv -qL 50
-  w3m -dump https://www.fakenamegenerator.com/advanced.php?t=country&n%5B%5D=us&c%5B%5D=us&gen=$gen&age-min=$min-age&age-max=$max-age
+  w3m -dump "https://www.fakenamegenerator.com/advanced.php?t=country&n%5B%5D=us&c%5B%5D=us&gen=$gen&age-min=$minage&age-max=$maxage" | grep -i -B 120 'Shortcuts' | pv -qL 50
+  # cat fakeId | grep -i -B 120 'Shortcuts' | pv -qL 50
 }
 
 ##Usage and Help
@@ -238,7 +296,7 @@ done
 ##Driver
 # special set of first arguments that have a specific behavior across tools
 if [[ $# == "0" ]]; then
-  usage ## if calling the tool with no flags and args chances are you want to return usage
+  getFakeId ## if calling the tool with no flags and args chances are you want to return usage
   exit 0
 elif [[ $# == "1" ]]; then
   if [[ $1 == "update" ]]; then
