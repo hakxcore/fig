@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # Author: Hakxcore https://github.com/hakxcore
 
-#sudo apt install html-xml-utils
-#sudo apt  install libxml2-utils
-
 currentVersion="v0.0.1"
 configuredClient=""
 
