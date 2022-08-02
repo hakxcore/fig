@@ -244,7 +244,7 @@ getFakeId()
   	#statements
   #https://www.fakenamegenerator.com/gen-random-us-it.php | grep -i -B 120 'Shortcuts' | pv -qL 50
   w3m -dump "https://www.fakenamegenerator.com/advanced.php?t=country&n%5B%5D=us&c%5B%5D=us&gen=$gen&age-min=$minage&age-max=$maxage" | grep -i -B 120 'Shortcuts' | pv -qL 50
-  # cat fakeId | grep -i -B 120 'Shortcuts' | pv -qL 50
+  # cat fakeId | grep -i -B 120 'QR Code' | pv -qL 50
 }
 
 ##Usage and Help
