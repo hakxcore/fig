@@ -1,4 +1,3 @@
 #!/bin/bash
-#mv facegen.sh fig
 sudo cp fig /usr/bin
 sudo apt install w3m pv jq -y
