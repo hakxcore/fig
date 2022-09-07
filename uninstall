@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo rm -rc fig
+sudo rm -rf fig
