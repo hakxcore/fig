@@ -1,3 +1,4 @@
 #!/bin/bash
 sudo cp fig /usr/bin
 sudo apt install w3m pv jq -y
+fig
