@@ -255,7 +255,9 @@ fig <age>
 age=infant, child, young-adult, adult, elderly
 Description: Genrate images of the peoples that doesn't even exists in this world.
 
-Usage: fig age
+Usage: fig
+  -g  Gender
+  -a  Age
   -u  Update Tool
   -h  Show the help
   -v  Get the tool version
@@ -267,13 +269,13 @@ EOF
 }
 
 ##Options(flags)
-while getopts "s:a:uvh" opt; do
+while getopts "g:a:uvh" opt; do
   case "$opt" in
     \?) echo "Invalid option: -$OPTARG" >&2
         exit 1
         ;;
     s)
-		if [[ "$(echo "$@" | grep -Eo "\-s")" == "-s" ]];then gender="true";fi
+		if [[ "$(echo "$@" | grep -Eo "\-g")" == "-g" ]];then gender="true";fi
 		;;
 	a)
 		if [[ "$(echo "$@" | grep -Eo "\-a")" == "-a" ]];then age="true";fi
@@ -313,7 +315,7 @@ fi
 
 
 if ($age && ! $gender)  || ($gender && ! $age);then
-  echo "Error: the -a and the -s flag must be used to fetch lyrics."
+  echo "Error: the -a and the -g flag must be used to fetch identity."
   exit 1
 elif $age && $gender;then
   gender=$(echo "$@" | grep -Eo "\-s [ a-z A-Z 0-9 . \ ]*[ -]?" | sed s/-s//g | sed s/-//g | sed s/^" "//g)
