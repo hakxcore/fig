@@ -1,4 +1,3 @@
 #!/bin/bash
 cp fig /usr/bin
 apt install w3m pv jq -y
-fig
